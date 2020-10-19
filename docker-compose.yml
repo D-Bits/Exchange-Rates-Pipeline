@@ -3,9 +3,11 @@ services:
     postgres:
         image: postgres:12.2-alpine
         environment:
-            - POSTGRES_USER=airflow
-            - POSTGRES_PASSWORD=airflow
-            - POSTGRES_DB=airflow
+            - POSTGRES_USER={airflow}
+            - POSTGRES_PASSWORD={airflow}
+            - POSTGRES_DB={airflow}
+        env_file:
+            - ./.env
         logging:
             options:
                 max-size: 10m
@@ -20,9 +22,8 @@ services:
         restart: always
         depends_on:
             - postgres
-        environment:
-            - LOAD_EX=n
-            - EXECUTOR=Local
+        env_file:
+            - ./.env
         logging:
             options:
                 max-size: 10m
