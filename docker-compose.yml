@@ -2,10 +2,6 @@ version: '3.7'
 services:
     postgres:
         image: postgres:12.2-alpine
-        environment:
-            - POSTGRES_USER={airflow}
-            - POSTGRES_PASSWORD={airflow}
-            - POSTGRES_DB={airflow}
         env_file:
             - ./.env
         logging:
