@@ -7,14 +7,18 @@ from os import getenv
 import pandas as pd
 
 
+"""
+DAG for initial seeding of the db, or overriding of existing table. 
+You should only need to run this once.
+"""
+
 default_args = {
     "owner": "airflow",
     "start_date": datetime(2020, 11, 1),
     "retries": 1,
 }
 
-# Run daily at 3pm, but skip weekends
-dag = DAG("update_rates", schedule_interval="0 15 * * 1-5", default_args=default_args)
+dag = DAG("seed_rates", schedule_interval=None, default_args=default_args)
 
 
 def extract(**context):
@@ -35,7 +39,7 @@ def transform(**context):
         ).rename(columns={
             "index": "dates"
         }
-    ).head(1).drop(['USD'], axis=1)
+    ).drop(['USD'], axis=1)
 
     context['ti'].xcom_push(key="df", value=df)
 
@@ -49,7 +53,7 @@ def load(**context):
         db_conn, 
         index=False, 
         method='multi', 
-        if_exists='append',
+        if_exists='replace',
     )
 
 
