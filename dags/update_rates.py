@@ -19,7 +19,7 @@ dag = DAG("update_rates", schedule_interval="0 15 * * 1-5", default_args=default
 
 def extract(**context):
 
-    data = get(f"https://api.exchangeratesapi.io/history?start_at=2019-05-01&end_at={date.today()}&base=USD").json()
+    data = get(f"https://api.exchangeratesapi.io/history?start_at=1999-01-01&end_at={date.today()}&base=USD").json()
     # Create an XCOM for this task to be used in transform()
     context['ti'].xcom_push(key="data", value=data)
 
