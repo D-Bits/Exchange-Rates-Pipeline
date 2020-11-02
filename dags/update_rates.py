@@ -30,14 +30,16 @@ def transform(**context):
     data = context["ti"].xcom_pull(key="data")
     # Load relevant JSON in DataFrame for processing
     df = pd.DataFrame(
-        data['rates']).transpose(
-        ).reset_index(
-        ).rename(columns={
-            "index": "dates"
+    data['rates']).transpose(
+    ).reset_index(
+    ).rename(columns={
+        "index": "dates"
         }
-    ).head(1).drop(['USD'], axis=1)
+    ).drop(['USD'], axis=1)
 
-    context['ti'].xcom_push(key="df", value=df)
+    today = df.sort_values(by='dates', ascending=False).head(1)
+
+    context['ti'].xcom_push(key="df", value=today)
 
 
 def load(**context):
