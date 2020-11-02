@@ -14,7 +14,7 @@ default_args = {
 }
 
 # Run daily at 3pm, but skip weekends
-dag = DAG("update_rates", schedule_interval="0 15 * * 1-5", default_args=default_args)
+dag = DAG("update_rates", schedule_interval="0 23 * * 1-5", default_args=default_args)
 
 
 def extract(**context):
@@ -60,3 +60,4 @@ with dag:
     t3 = PythonOperator(task_id="load", python_callable=load, provide_context=True)
 
     t1 >> t2 >> t3 
+    
