@@ -53,7 +53,7 @@ def load(**context):
         db_conn, 
         index=False, 
         method='multi', 
-        if_exists='replace',
+        if_exists='append',
     )
 
 

@@ -62,4 +62,4 @@ with dag:
     t3 = PythonOperator(task_id="load", python_callable=load, provide_context=True)
 
     t1 >> t2 >> t3 
-    
+ 
