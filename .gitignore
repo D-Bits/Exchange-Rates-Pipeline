@@ -28,3 +28,4 @@ __pycache__
 
 env/
 .env
+testing.ipynb
