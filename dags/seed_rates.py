@@ -18,7 +18,7 @@ default_args = {
     "retries": 1,
 }
 
-dag = DAG("seed_rates", schedule_interval=None, default_args=default_args)
+dag = DAG("seed_rates", schedule_interval=None, template_searchpath=['/usr/local/airflow/sql'], default_args=default_args)
 
 
 def extract(**context):
